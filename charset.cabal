@@ -1,0 +1,23 @@
+name:         charset
+version:      0.0
+license:      BSD3
+license-File: LICENSE
+copyright:    (c) Edward Kmett 2010
+author:       Edward Kmett
+maintainer:   ekmett@gmail.com
+stability:    Experimental
+category:     Data
+homepage:     http://github.com/ekmett/charset
+synopsis:     Fast unicode character sets
+description:  Fast unicode character sets
+
+build-type:   Simple
+build-depends:       
+    base >= 4 && < 5,
+    containers >= 0.2 && < 0.4,
+    array >= 0.2 && < 0.4
+
+exposed-modules:
+    Data.CharSet
+
+GHC-Options: -Wall -fspec-constr -fdicts-cheap -O2
