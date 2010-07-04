@@ -1,6 +1,4 @@
 charset
 -------
 
-Fast utf-8 character sets for Haskell represented as arbitrary precision floating point
-numbers with the exponent being the smallest character in the set. Negative mantissas 
-encode dense complemented sets.
+Fast utf-8 character sets for Haskell represented as complemented PATRICIA tries.

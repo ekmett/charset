@@ -1,5 +1,5 @@
 name:         charset
-version:      0.0
+version:      0.1
 license:      BSD3
 license-File: LICENSE
 copyright:    (c) Edward Kmett 2010
@@ -8,8 +8,8 @@ maintainer:   ekmett@gmail.com
 stability:    Experimental
 category:     Data
 homepage:     http://github.com/ekmett/charset
-synopsis:     Fast unicode character sets
-description:  Fast unicode character sets
+synopsis:     Fast unicode character sets based on complemented PATRICIA tries
+description:  Fast unicode character sets based on complemented PATRICIA tries
 
 build-type:   Simple
 build-depends:       
@@ -19,5 +19,8 @@ build-depends:
 
 exposed-modules:
     Data.CharSet
+    Data.CharSet.Common
+    Data.CharSet.Posix.Ascii
+    Data.CharSet.Unicode
 
 GHC-Options: -Wall -fspec-constr -fdicts-cheap -O2
