@@ -118,6 +118,7 @@ canonicalize s = case Prelude.map toLower s of
     where
         go ('-':xs) = go xs
         go ('_':xs) = go xs
+        go (' ':xs) = go xs
         go (x:xs) = x : go xs
         go [] = []
 
