@@ -1,5 +1,5 @@
 name:         charset
-version:      0.2.1
+version:      0.2.2
 license:      BSD3
 license-File: LICENSE
 copyright:    (c) Edward Kmett 2010
@@ -21,6 +21,7 @@ exposed-modules:
     Data.CharSet
     Data.CharSet.Common
     Data.CharSet.Posix.Ascii
+    Data.CharSet.Posix.Unicode
     Data.CharSet.Unicode.Block
     Data.CharSet.Unicode.Category
 

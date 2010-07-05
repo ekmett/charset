@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------
 -- |
--- Module      :  Data.CharSet.Posix.Ascii
+-- Module      :  Data.CharSet.Posix.Unicode
 -- Copyright   :  (c) Edward Kmett 2010
 -- License     :  BSD3
 -- Maintainer  :  ekmett@gmail.com
@@ -9,38 +9,40 @@
 --
 -------------------------------------------------------------------------------
 
-module Data.CharSet.Posix.Ascii
-    ( posixAscii
-    , lookupPosixAsciiCharSet
-    -- * Traditional POSIX ASCII \"classes\"
+module Data.CharSet.Posix.Unicode
+    ( posixUnicode
+    , lookupPosixUnicodeCharSet
+    -- * POSIX ASCII \"classes\"
     , alnum, alpha, ascii, blank, cntrl, digit, graph, print, word, punct, space, upper, lower, xdigit
     ) where
 
 import Prelude hiding (print)
 import Data.Char
 import Data.CharSet
+import qualified Data.CharSet.Unicode.Category as Category
+import qualified Data.CharSet.Unicode.Block as Block
 import Data.Map (Map)
 import qualified Data.Map as Map
 
 alnum, alpha, ascii, blank, cntrl, digit, graph, print, word, punct, space, upper, lower, xdigit :: CharSet
 alnum = alpha `union` digit
-alpha = lower `union` upper
-ascii = range '\x00' '\x7f'
-blank = fromList " \t"
-cntrl = insert '\x7f' $ range '\x00' '\x1f'
-digit = range '0' '9'
-lower = range 'a' 'z'
-upper = range 'A' 'Z'
-graph = range '\x21' '\x7e'
-print = insert '\x20' graph
-word  = insert '_' alnum
-punct = fromList "-!\"#$%&'()*+,./:;<=>?@[\\]^_`{|}~"
-space = fromList " \t\r\n\v\f"
+ascii = Block.basicLatin
+alpha = Category.letterAnd
+blank = insert '\t' Category.space 
+cntrl = Category.control
+digit = Category.decimalNumber
+lower = Category.lowercaseLetter
+upper = Category.uppercaseLetter
+graph = complement (Category.separator `union` Category.other)
+print = complement (Category.other)
+word  = Category.letter `union` Category.number `union` Category.connectorPunctuation
+punct = Category.punctuation `union` Category.symbol
+space = fromList " \t\r\n\v\f" `union` Category.separator
 xdigit = digit `union` range 'a' 'f' `union` range 'A' 'F'
 
 -- :digit:, etc.
-posixAscii :: Map String CharSet
-posixAscii = Map.fromList
+posixUnicode :: Map String CharSet
+posixUnicode = Map.fromList
     [ ("alnum", alnum)
     , ("alpha", alpha)
     , ("ascii", ascii)
@@ -57,5 +59,6 @@ posixAscii = Map.fromList
     , ("xdigit", xdigit)
     ]
 
-lookupPosixAsciiCharSet :: String -> Maybe CharSet
-lookupPosixAsciiCharSet s = Map.lookup (Prelude.map toLower s) posixAscii
+lookupPosixUnicodeCharSet :: String -> Maybe CharSet
+lookupPosixUnicodeCharSet s = Map.lookup (Prelude.map toLower s) posixUnicode
+
