@@ -74,6 +74,7 @@ import qualified Data.List as L
 import Prelude hiding (filter, map, null)
 import qualified Prelude as P
 import Text.Read
+import Control.DeepSeq
 
 data CharSet = P IntSet | N IntSet
 
@@ -326,3 +327,7 @@ instance Read CharSet where
 instance Monoid CharSet where
     mempty = empty
     mappend = union
+
+instance NFData CharSet where
+  rnf (P s) = rnf s
+  rnf (N s) = rnf s
