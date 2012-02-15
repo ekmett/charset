@@ -1,28 +1,52 @@
-name:         charset
-version:      0.2.3
-license:      BSD3
-license-File: LICENSE
-copyright:    (c) Edward Kmett 2010
-author:       Edward Kmett
-maintainer:   ekmett@gmail.com
-stability:    Experimental
-category:     Data
-homepage:     http://github.com/ekmett/charset
-synopsis:     Fast unicode character sets based on complemented PATRICIA tries
-description:  Fast unicode character sets based on complemented PATRICIA tries
+name:          charset
+version:       0.3
+license:       BSD3
+license-File:  LICENSE
+copyright:     (c) Edward Kmett 2010-2012
+author:        Edward Kmett
+maintainer:    ekmett@gmail.com
+cabal-version: >= 1.6
+stability:     Experimental
+category:      Data
+homepage:      http://github.com/ekmett/charset
+synopsis:      Fast unicode character sets based on complemented PATRICIA tries
+description:   Fast unicode character sets based on complemented PATRICIA tries
+build-type:    Simple
 
-build-type:   Simple
-build-depends:
-    base >= 4 && < 5,
-    containers >= 0.2 && < 0.5,
-    array >= 0.2 && < 0.5
+source-repository head
+  type: git
+  location: git://github.com/ekmett/charset.git
 
-exposed-modules:
+flag OldTypeable
+  manual: False
+  default: False
+
+library
+  extensions: CPP
+  other-extensions: MagicHash, BangPatterns
+
+  if flag(OldTypeable)
+    build-depends: base >= 4.0 && < 4.4
+    cpp-options: -DOLD_TYPEABLE
+  else 
+    build-depends: base >= 4.4 && < 5
+
+  build-depends:
+    array                >= 0.2     && < 0.5,
+    bytestring           >= 0.9.2.1 && < 0.10,
+    containers           >= 0.2     && < 0.5,
+    semigroups           >= 0.8     && < 0.9,
+    unordered-containers >= 0.1.4.6 && < 0.2
+
+  exposed-modules:
     Data.CharSet
     Data.CharSet.Common
+    Data.CharSet.Posix
     Data.CharSet.Posix.Ascii
     Data.CharSet.Posix.Unicode
+    Data.CharSet.Unicode
     Data.CharSet.Unicode.Block
     Data.CharSet.Unicode.Category
+    Data.CharSet.ByteSet
 
-GHC-Options: -Wall -fspec-constr -fdicts-cheap -O2
+  ghc-options: -Wall -fspec-constr -fdicts-cheap -O2

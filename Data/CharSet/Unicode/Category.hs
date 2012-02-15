@@ -2,11 +2,11 @@
 -----------------------------------------------------------------------------
 -- |
 -- Module      :  Data.CharSet.Unicode.Category
--- Copyright   :  (c) Edward Kmett 2010
+-- Copyright   :  (c) Edward Kmett 2010-2012
 -- License     :  BSD3
 -- Maintainer  :  ekmett@gmail.com
 -- Stability   :  experimental
--- Portability :  portable
+-- Portability :  DeriveDataTypeable
 --
 -- Provides unicode general categories, which are typically connoted by 
 -- @\p{Ll}@ or @\p{Modifier_Letter}@. Lookups can be constructed using 'categories'
@@ -47,10 +47,10 @@ module Data.CharSet.Unicode.Category
 import Data.Char
 import Data.CharSet
 import Data.Data
-import Data.Map (Map)
-import qualified Data.Map as Map
+import Data.HashMap.Lazy (HashMap)
+import qualified Data.HashMap.Lazy as HashMap
 
-data Category = Category 
+data Category = Category
     { categoryName :: String
     , categoryAbbreviation :: String
     , categoryCharSet :: CharSet
@@ -99,28 +99,29 @@ categories =
     ,     Category "Surrogate" "Cs" surrogate "one half of a surrogate pair in UTF-16 encoding"
     ,     Category "Unassigned" "Cn" notAssigned "any code point to which no character has been assigned.properties" ]
 
-lookupTable :: Map String Category
-lookupTable = 
-    Map.fromList [ (canonicalize x, category) 
-                 | category@(Category l s _ _) <- categories
-                 , x <- [l,s] ]
+lookupTable :: HashMap String Category
+lookupTable = HashMap.fromList 
+  [ (canonicalize x, category) 
+  | category@(Category l s _ _) <- categories
+  , x <- [l,s] 
+  ]
 
 lookupCategory :: String -> Maybe Category
-lookupCategory s = Map.lookup (canonicalize s) lookupTable
+lookupCategory s = HashMap.lookup (canonicalize s) lookupTable
 
 lookupCategoryCharSet :: String -> Maybe CharSet
 lookupCategoryCharSet = fmap categoryCharSet . lookupCategory
 
 canonicalize :: String -> String
 canonicalize s = case Prelude.map toLower s of
-    'i' : 's' : xs -> go xs
-    xs -> go xs
-    where
-        go ('-':xs) = go xs
-        go ('_':xs) = go xs
-        go (' ':xs) = go xs
-        go (x:xs) = x : go xs
-        go [] = []
+  'i' : 's' : xs -> go xs
+  xs -> go xs
+  where
+    go ('-':xs) = go xs
+    go ('_':xs) = go xs
+    go (' ':xs) = go xs
+    go (x:xs) = x : go xs
+    go [] = []
 
 cat :: GeneralCategory -> CharSet
 cat category = build ((category ==) . generalCategory)

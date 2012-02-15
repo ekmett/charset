@@ -21,14 +21,14 @@ import Data.Char
 import Data.CharSet
 import qualified Data.CharSet.Unicode.Category as Category
 import qualified Data.CharSet.Unicode.Block as Block
-import Data.Map (Map)
-import qualified Data.Map as Map
+import Data.HashMap.Lazy (HashMap)
+import qualified Data.HashMap.Lazy as HashMap
 
 alnum, alpha, ascii, blank, cntrl, digit, graph, print, word, punct, space, upper, lower, xdigit :: CharSet
 alnum = alpha `union` digit
 ascii = Block.basicLatin
 alpha = Category.letterAnd
-blank = insert '\t' Category.space 
+blank = insert '\t' Category.space
 cntrl = Category.control
 digit = Category.decimalNumber
 lower = Category.lowercaseLetter
@@ -41,15 +41,15 @@ space = fromList " \t\r\n\v\f" `union` Category.separator
 xdigit = digit `union` range 'a' 'f' `union` range 'A' 'F'
 
 -- :digit:, etc.
-posixUnicode :: Map String CharSet
-posixUnicode = Map.fromList
+posixUnicode :: HashMap String CharSet
+posixUnicode = HashMap.fromList
     [ ("alnum", alnum)
     , ("alpha", alpha)
     , ("ascii", ascii)
     , ("blank", blank)
     , ("cntrl", cntrl)
     , ("digit", digit)
-    , ("graph", graph) 
+    , ("graph", graph)
     , ("print", print)
     , ("word",  word)
     , ("punct", punct)
@@ -60,5 +60,5 @@ posixUnicode = Map.fromList
     ]
 
 lookupPosixUnicodeCharSet :: String -> Maybe CharSet
-lookupPosixUnicodeCharSet s = Map.lookup (Prelude.map toLower s) posixUnicode
+lookupPosixUnicodeCharSet s = HashMap.lookup (Prelude.map toLower s) posixUnicode
 

@@ -3,19 +3,19 @@
 -----------------------------------------------------------------------------
 -- |
 -- Module      :  Data.CharSet.Unicode.Block
--- Copyright   :  (c) Edward Kmett 2010
+-- Copyright   :  (c) Edward Kmett 2010-2011
 -- License     :  BSD3
 -- Maintainer  :  ekmett@gmail.com
 -- Stability   :  experimental
 -- Portability :  portable
 --
--- Provides unicode general categories, which are typically connoted by 
+-- Provides unicode general categories, which are typically connoted by
 -- @\p{InBasicLatin}@ or @\p{InIPA_Extensions}@. Lookups can be constructed using 'categories'
 -- or individual character sets can be used directly.
 -------------------------------------------------------------------------------
 
 module Data.CharSet.Unicode.Block
-    ( 
+    (
     -- * Unicode General Category
       Block(..)
     -- * Lookup
@@ -133,10 +133,10 @@ module Data.CharSet.Unicode.Block
 import Data.Char
 import Data.CharSet
 import Data.Data
-import Data.Map (Map)
-import qualified Data.Map as Map
+import Data.HashMap.Lazy (HashMap)
+import qualified Data.HashMap.Lazy as HashMap
 
-data Block = Block 
+data Block = Block
     { blockName :: String
     , blockCharSet :: CharSet
     } deriving (Show, Data, Typeable)
@@ -253,8 +253,8 @@ blocks =
     , Block "Halfwidth_and_Fullwidth_Forms" halfwidthAndFullwidthForms
     , Block "Specials" specials ]
 
-lookupTable :: Map String Block
-lookupTable = Map.fromList $ 
+lookupTable :: HashMap String Block
+lookupTable = HashMap.fromList $
               Prelude.map (\y@(Block x _) -> (canonicalize x, y))
               blocks
 
@@ -270,7 +270,7 @@ canonicalize s = case Prelude.map toLower s of
         go [] = []
 
 lookupBlock :: String -> Maybe Block
-lookupBlock s = Map.lookup (canonicalize s) lookupTable
+lookupBlock s = HashMap.lookup (canonicalize s) lookupTable
 
 lookupBlockCharSet :: String -> Maybe CharSet
 lookupBlockCharSet = fmap blockCharSet . lookupBlock
@@ -380,4 +380,3 @@ smallFormVariants = range '\xFE50' '\xFE6F'
 arabicPresentationFormsB = range '\xFE70' '\xFEFF'
 halfwidthAndFullwidthForms = range '\xFF00' '\xFFEF'
 specials = range '\xFFF0' '\xFFFF'
-

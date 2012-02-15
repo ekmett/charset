@@ -8,13 +8,13 @@
 -- Stability   :  experimental
 -- Portability :  portable
 --
--- Provides unicode general categories, which are typically connoted by 
+-- Provides unicode general categories, which are typically connoted by
 -- @\p{Ll}@ or @\p{Modifier_Letter}@. Lookups can be constructed using 'categories'
 -- or individual character sets can be used directly.
 -------------------------------------------------------------------------------
 
 module Data.CharSet.Unicode
-    ( 
+    (
     -- * Unicode General Category
       UnicodeCategory(..)
     -- * Lookup
@@ -34,14 +34,14 @@ module Data.CharSet.Unicode
     , decimalNumber, letterNumber, otherNumber, number
     -- ** Punctuation
     , dashPunctuation, openPunctuation, closePunctuation, initialQuote
-    , finalQuote, connectorPunctuation, otherPunctuation, punctuation 
+    , finalQuote, connectorPunctuation, otherPunctuation, punctuation
     -- ** Other
     , control, format, privateUse, surrogate, notAssigned, other
     ) where
 
 import Data.Char
-import Data.CharSet
 import Data.Data
+import Data.CharSet
 
 data UnicodeCategory = UnicodeCategory String String CharSet String
     deriving (Show, Data, Typeable)
@@ -96,14 +96,14 @@ lowercaseLetter, uppercaseLetter, titlecaseLetter, letterAnd, modifierLetter, ot
 lowercaseLetter = cat LowercaseLetter
 uppercaseLetter = cat UppercaseLetter
 titlecaseLetter = cat TitlecaseLetter
-letterAnd = lowercaseLetter 
-    `union` uppercaseLetter 
+letterAnd = lowercaseLetter
+    `union` uppercaseLetter
     `union` titlecaseLetter
 modifierLetter  = cat ModifierLetter
 otherLetter = cat OtherLetter
-letter 
-          = letterAnd 
-    `union` modifierLetter 
+letter
+          = letterAnd
+    `union` modifierLetter
     `union` otherLetter
 
 -- Marks
@@ -111,18 +111,18 @@ nonSpacingMark, spacingCombiningMark, enclosingMark, mark :: CharSet
 nonSpacingMark = cat NonSpacingMark
 spacingCombiningMark = cat SpacingCombiningMark
 enclosingMark = cat EnclosingMark
-mark 
-          = nonSpacingMark 
-    `union` spacingCombiningMark 
+mark
+          = nonSpacingMark
+    `union` spacingCombiningMark
     `union` enclosingMark
 
 space, lineSeparator, paragraphSeparator, separator :: CharSet
 space = cat Space
 lineSeparator = cat LineSeparator
 paragraphSeparator = cat ParagraphSeparator
-separator 
-          = space 
-    `union` lineSeparator 
+separator
+          = space
+    `union` lineSeparator
     `union` paragraphSeparator
 
 mathSymbol, currencySymbol, modifierSymbol, otherSymbol, symbol :: CharSet
@@ -130,22 +130,22 @@ mathSymbol = cat MathSymbol
 currencySymbol = cat CurrencySymbol
 modifierSymbol = cat ModifierSymbol
 otherSymbol = cat OtherSymbol
-symbol 
-          = mathSymbol 
-    `union` currencySymbol 
-    `union` modifierSymbol 
+symbol
+          = mathSymbol
+    `union` currencySymbol
+    `union` modifierSymbol
     `union` otherSymbol
 
 decimalNumber, letterNumber, otherNumber, number :: CharSet
 decimalNumber = cat DecimalNumber
 letterNumber = cat LetterNumber
 otherNumber = cat OtherNumber
-number 
-          = decimalNumber 
-    `union` letterNumber 
+number
+          = decimalNumber
+    `union` letterNumber
     `union` otherNumber
 
-dashPunctuation, openPunctuation, closePunctuation, initialQuote, 
+dashPunctuation, openPunctuation, closePunctuation, initialQuote,
   finalQuote, connectorPunctuation, otherPunctuation, punctuation :: CharSet
 
 dashPunctuation = cat DashPunctuation
@@ -155,13 +155,13 @@ initialQuote = cat InitialQuote
 finalQuote = cat FinalQuote
 connectorPunctuation  = cat ConnectorPunctuation
 otherPunctuation = cat OtherPunctuation
-punctuation 
-          = dashPunctuation 
-    `union` openPunctuation 
-    `union` closePunctuation 
-    `union` initialQuote 
-    `union` finalQuote 
-    `union` connectorPunctuation 
+punctuation
+          = dashPunctuation
+    `union` openPunctuation
+    `union` closePunctuation
+    `union` initialQuote
+    `union` finalQuote
+    `union` connectorPunctuation
     `union` otherPunctuation
 
 control, format, privateUse, surrogate, notAssigned, other :: CharSet
@@ -170,8 +170,8 @@ format = cat Format
 privateUse = cat PrivateUse
 surrogate = cat Surrogate
 notAssigned = cat NotAssigned
-other = control 
-    `union` format 
-    `union` privateUse 
-    `union` surrogate 
+other = control
+    `union` format
+    `union` privateUse
+    `union` surrogate
     `union` notAssigned

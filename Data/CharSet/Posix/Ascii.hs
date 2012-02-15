@@ -19,8 +19,8 @@ module Data.CharSet.Posix.Ascii
 import Prelude hiding (print)
 import Data.Char
 import Data.CharSet
-import Data.Map (Map)
-import qualified Data.Map as Map
+import Data.HashMap.Lazy (HashMap)
+import qualified Data.HashMap.Lazy as HashMap
 
 alnum, alpha, ascii, blank, cntrl, digit, graph, print, word, punct, space, upper, lower, xdigit :: CharSet
 alnum = alpha `union` digit
@@ -39,15 +39,15 @@ space = fromList " \t\r\n\v\f"
 xdigit = digit `union` range 'a' 'f' `union` range 'A' 'F'
 
 -- :digit:, etc.
-posixAscii :: Map String CharSet
-posixAscii = Map.fromList
+posixAscii :: HashMap String CharSet
+posixAscii = HashMap.fromList
     [ ("alnum", alnum)
     , ("alpha", alpha)
     , ("ascii", ascii)
     , ("blank", blank)
     , ("cntrl", cntrl)
     , ("digit", digit)
-    , ("graph", graph) 
+    , ("graph", graph)
     , ("print", print)
     , ("word",  word)
     , ("punct", punct)
@@ -58,4 +58,4 @@ posixAscii = Map.fromList
     ]
 
 lookupPosixAsciiCharSet :: String -> Maybe CharSet
-lookupPosixAsciiCharSet s = Map.lookup (Prelude.map toLower s) posixAscii
+lookupPosixAsciiCharSet s = HashMap.lookup (Prelude.map toLower s) posixAscii
