@@ -1,5 +1,5 @@
 name:          charset
-version:       0.3
+version:       0.3.0.1
 license:       BSD3
 license-File:  LICENSE
 copyright:     (c) Edward Kmett 2010-2012
@@ -36,7 +36,7 @@ library
     bytestring           >= 0.9.2.1 && < 0.10,
     containers           >= 0.2     && < 0.5,
     semigroups           >= 0.8     && < 0.9,
-    unordered-containers >= 0.1.4.6 && < 0.2
+    unordered-containers >= 0.1.4.6 && < 0.3
 
   exposed-modules:
     Data.CharSet
