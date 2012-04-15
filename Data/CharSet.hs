@@ -275,8 +275,8 @@ instance Typeable CharSet where
   typeOf _ = mkTyConApp charSetTyCon []
 
 charSetTyCon :: TyCon
-#ifdef OLD_TYPEABLE
-charSetTyCon = mkTyCon "Data.CharSet.harSet"
+#if !MIN_VERSION_base(4,4,0)
+charSetTyCon = mkTyCon "Data.CharSet.CharSet"
 #else
 charSetTyCon = mkTyCon3 "charset" "Data.CharSet" "CharSet"
 #endif
