@@ -275,10 +275,10 @@ instance Typeable CharSet where
   typeOf _ = mkTyConApp charSetTyCon []
 
 charSetTyCon :: TyCon
-#if !MIN_VERSION_base(4,4,0)
-charSetTyCon = mkTyCon "Data.CharSet.CharSet"
-#else
+#if MIN_VERSION_base(4,4,0)
 charSetTyCon = mkTyCon3 "charset" "Data.CharSet" "CharSet"
+#else
+charSetTyCon = mkTyCon "Data.CharSet.CharSet"
 #endif
 {-# NOINLINE charSetTyCon #-}
 
