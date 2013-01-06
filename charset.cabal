@@ -46,4 +46,5 @@ library
     Data.CharSet.Unicode.Category
     Data.CharSet.ByteSet
 
+  hs-source-dirs: src
   ghc-options: -Wall -fspec-constr -fdicts-cheap -O2
