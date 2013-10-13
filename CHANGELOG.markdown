@@ -1,3 +1,7 @@
+0.3.5.1
+-------
+* Updated dependencies to support GHC 7.8
+
 0.3.5
 -----
 * Claim to be Trustworthy.

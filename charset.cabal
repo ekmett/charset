@@ -1,5 +1,5 @@
 name:          charset
-version:       0.3.5
+version:       0.3.5.1
 license:       BSD3
 license-File:  LICENSE
 copyright:     (c) Edward Kmett 2010-2012
@@ -29,10 +29,10 @@ library
 
   build-depends:
     base                 >= 4       && < 5,
-    array                >= 0.2     && < 0.5,
+    array                >= 0.2     && < 0.6,
     bytestring           >= 0.9     && < 0.11,
     containers           >= 0.2     && < 0.6,
-    semigroups           >= 0.8.3.1,
+    semigroups           >= 0.8.3.1 && < 1,
     unordered-containers >= 0.1.4.6 && < 0.3
 
   exposed-modules:
