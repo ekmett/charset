@@ -146,10 +146,6 @@ blocks =
     [ Block "Basic_Latin" basicLatin
     , Block "Latin-1_Supplement" latin1Supplement
     , Block "Latin_Extended-A" latinExtendedA
-    , Block "IPA_Extensions" ipaExtensions
-    , Block "Spacing_Modifier_Letters" spacingModifierLetters
-
-    , Block "Latin_Extended-A" latinExtendedA
     , Block "Latin_Extended-B" latinExtendedB
     , Block "IPA_Extensions" ipaExtensions
     , Block "Spacing_Modifier_Letters" spacingModifierLetters
