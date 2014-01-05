@@ -19,10 +19,6 @@ source-repository head
   type: git
   location: git://github.com/ekmett/charset.git
 
-flag OldTypeable
-  manual: False
-  default: False
-
 library
   extensions: CPP
   other-extensions: MagicHash, BangPatterns
