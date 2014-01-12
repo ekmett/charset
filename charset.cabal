@@ -19,12 +19,6 @@ source-repository head
   type: git
   location: git://github.com/ekmett/charset.git
 
-flag OldTypeable
-  description: Enable support for older GHC versions. This flag is managed by
-               the build system and users should not set it themselves.
-  manual: False
-  default: False
-
 library
   extensions: CPP
   other-extensions: MagicHash, BangPatterns
