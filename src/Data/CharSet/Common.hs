@@ -11,7 +11,7 @@
 -------------------------------------------------------------------------------
 
 module Data.CharSet.Common
-    ( 
+    (
     -- ** Data.Char classes
       control
     , space
@@ -39,8 +39,8 @@ import Data.Char
 import Data.CharSet
 
 -- Haskell character classes from Data.Char
-control, space, lower, upper, alpha, alphaNum, 
-  print, digit, octDigit, letter, mark, number, 
+control, space, lower, upper, alpha, alphaNum,
+  print, digit, octDigit, letter, mark, number,
   punctuation, symbol, separator, ascii, latin1
   , asciiUpper, asciiLower :: CharSet
 
