@@ -1,7 +1,7 @@
 charsets
 ========
 
-[![Build Status](https://secure.travis-ci.org/ekmett/charsets.png?branch=master)](http://travis-ci.org/ekmett/charsets)
+[![Build Status](https://secure.travis-ci.org/ekmett/charset.png?branch=master)](http://travis-ci.org/ekmett/charset)
 
 Fast utf-8 character sets for Haskell represented as complemented PATRICIA tries.
 
