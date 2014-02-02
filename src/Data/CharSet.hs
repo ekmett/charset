@@ -3,6 +3,10 @@
 #if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 702
 {-# LANGUAGE Trustworthy #-}
 #endif
+#if MIN_VERSION_base(4,7,0)
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE StandaloneDeriving #-}
+#endif
 -----------------------------------------------------------------------------
 -- |
 -- Module      :  Data.CharSet
@@ -275,6 +279,9 @@ numChars :: Int
 numChars = oh - ol + 1
 {-# INLINE numChars #-}
 
+#if MIN_VERSION_base(4,7,0)
+deriving instance Typeable CharSet
+#else
 instance Typeable CharSet where
   typeOf _ = mkTyConApp charSetTyCon []
 
@@ -285,6 +292,7 @@ charSetTyCon = mkTyCon3 "charset" "Data.CharSet" "CharSet"
 charSetTyCon = mkTyCon "Data.CharSet.CharSet"
 #endif
 {-# NOINLINE charSetTyCon #-}
+#endif
 
 instance Data CharSet where
   gfoldl k z set
