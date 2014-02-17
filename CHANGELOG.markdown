@@ -1,3 +1,7 @@
+0.3.7
+-----
+* Switched to derived Typeable for GHC 7.8 compatibility
+
 0.3.6
 -----
 * Removed some duplicated blocks in `Data.CharSet.Unicode.Block.blocks`, see issue #3.
