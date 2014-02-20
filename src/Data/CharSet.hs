@@ -1,11 +1,8 @@
 {-# OPTIONS_GHC -fspec-constr #-}
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 #if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 702
 {-# LANGUAGE Trustworthy #-}
-#endif
-#if MIN_VERSION_base(4,7,0)
-{-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE StandaloneDeriving #-}
 #endif
 -----------------------------------------------------------------------------
 -- |
@@ -95,6 +92,7 @@ import qualified Prelude as P
 import Text.Read
 
 data CharSet = CharSet !Bool {-# UNPACK #-} !ByteSet !IntSet
+  deriving Typeable
 
 charSet :: Bool -> IntSet -> CharSet
 charSet b s = CharSet b (ByteSet.fromList (fmap headByte (I.toAscList s))) s
@@ -278,21 +276,6 @@ oh = fromEnum uh
 numChars :: Int
 numChars = oh - ol + 1
 {-# INLINE numChars #-}
-
-#if MIN_VERSION_base(4,7,0)
-deriving instance Typeable CharSet
-#else
-instance Typeable CharSet where
-  typeOf _ = mkTyConApp charSetTyCon []
-
-charSetTyCon :: TyCon
-#if MIN_VERSION_base(4,4,0)
-charSetTyCon = mkTyCon3 "charset" "Data.CharSet" "CharSet"
-#else
-charSetTyCon = mkTyCon "Data.CharSet.CharSet"
-#endif
-{-# NOINLINE charSetTyCon #-}
-#endif
 
 instance Data CharSet where
   gfoldl k z set
