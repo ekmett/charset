@@ -9,7 +9,7 @@
 -- Portability :  DeriveDataTypeable
 --
 -- Provides unicode general categories, which are typically connoted by
--- @\p{Ll}@ or @\p{Modifier_Letter}@. Lookups can be constructed using 'categories'
+-- @\\p{Ll}@ or @\\p{Modifier_Letter}@. Lookups can be constructed using 'categories'
 -- or individual character sets can be used directly.
 --
 -- A case, @_@ and @-@ insensitive lookup is provided by 'lookupCategory'
