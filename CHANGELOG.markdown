@@ -1,3 +1,7 @@
+0.3.7.1
+-------
+* Minor haddock fixup.
+
 0.3.7
 -----
 * Switched to derived Typeable for GHC 7.8 compatibility
