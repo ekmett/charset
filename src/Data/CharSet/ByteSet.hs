@@ -14,9 +14,11 @@
 -- Stability   :  experimental
 -- Portability :  non-portable (BangPatterns, MagicHash)
 --
--- Fast set membership tests for byte values, The set representation is
--- unboxed for efficiency and uses a lookup table. This is a fairly minimal
--- API. You probably want to use CharSet.
+-- Fast set membership tests for byte values. The set representation is
+-- unboxed for efficiency and uses one bit per byte to represent the presence
+-- or absence of a byte in the set.
+--
+-- This is a fairly minimal API. You probably want to use CharSet.
 -----------------------------------------------------------------------------
 module Data.CharSet.ByteSet
     (
@@ -38,7 +40,11 @@ import qualified Data.ByteString.Unsafe as U
 
 newtype ByteSet = ByteSet B.ByteString deriving (Eq, Ord, Show)
 
-data I = I {-# UNPACK #-} !Int {-# UNPACK #-} !Word8
+-- | Representation of the index of a bit inside a bytestring
+-- in terms of a byte index and a bit index inside the byte
+data I = I
+    {-# UNPACK #-} !Int         -- byte index
+    {-# UNPACK #-} !Word8       -- bit index
 
 shiftR :: Int -> Int -> Int
 shiftR (I# x#) (I# i#) = I# (x# `iShiftRA#` i#)
@@ -46,6 +52,7 @@ shiftR (I# x#) (I# i#) = I# (x# `iShiftRA#` i#)
 shiftL :: Word8 -> Int -> Word8
 shiftL (W8# x#) (I# i#) = W8# (narrow8Word# (x# `shiftL#` i#))
 
+-- | Convert a bit index to a byte index and bit index inside the byte
 index :: Int -> I
 index i = I (i `shiftR` 3) (1 `shiftL` (i .&. 7))
 {-# INLINE index #-}

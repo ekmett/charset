@@ -13,12 +13,12 @@
 -- Stability   :  experimental
 -- Portability :  portable
 --
--- Fast set membership tests for 'Char' values
+-- A CharSet is an /efficient/ representation of a set of 'Char' values
+-- designed for fast membership tests.
 --
--- Stored as a (possibly negated) IntMap and a fast set used for the head byte.
---
--- The set of valid (possibly negated) head bytes is stored unboxed as a 32-byte
--- bytestring-based lookup table.
+-- As an example @build isAlpha@ will create a set of alphabetic characters.
+-- We can then use 'member' on the generated set to /efficiently/ test if a
+-- given @Char@ represents an alphabetic character.
 --
 -- Designed to be imported qualified:
 --
@@ -91,7 +91,14 @@ import Prelude hiding (filter, map, null)
 import qualified Prelude as P
 import Text.Read
 
-data CharSet = CharSet !Bool {-# UNPACK #-} !ByteSet !IntSet
+-- | Stored as a (possibly negated) IntSet and a fast set used for the head byte.
+--
+-- The set of valid (possibly negated) head bytes is stored unboxed as a 32-byte
+-- bytestring-based lookup table.
+data CharSet = CharSet
+    !Bool    -- Whether ByteSet and IntSet are negated
+    !ByteSet -- Set of head bytes, unboxed
+    !IntSet  -- Set of characters in the charset
   deriving Typeable
 
 charSet :: Bool -> IntSet -> CharSet
@@ -113,6 +120,11 @@ neg = charSet False
 (\\) :: CharSet -> CharSet -> CharSet
 (\\) = difference
 
+-- | Applies a predicate across the whole range of possible character values
+-- to create a set of only those characters which satisfy the predicate.
+--
+-- As an example @build isAlpha@ will generate a CharSet of all
+-- alphabetic characters.
 build :: (Char -> Bool) -> CharSet
 build p = fromDistinctAscList $ P.filter p [minBound .. maxBound]
 {-# INLINE build #-}
