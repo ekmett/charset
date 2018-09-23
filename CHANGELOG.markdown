@@ -1,3 +1,7 @@
+Next
+----
+* Updated dependency bounds to support GHC 8.6.
+
 0.3.7.1
 -------
 * Minor haddock fixup.
