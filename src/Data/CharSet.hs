@@ -75,6 +75,11 @@ module Data.CharSet
     , toArray
     ) where
 
+#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 608
+import Data.String (IsString(..))
+-- <<< -XOverloadedStrings >>> was introduced by GHC 6.8.1
+#endif
+
 import Data.Array.Unboxed hiding (range)
 import Data.Data
 import Data.Function (on)
@@ -93,6 +98,12 @@ import Text.Read
 
 data CharSet = CharSet !Bool {-# UNPACK #-} !ByteSet !IntSet
   deriving Typeable
+
+#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 608
+-- | @= CharSet.`fromList`@
+instance IsString CharSet where
+  fromString = fromList
+#endif
 
 charSet :: Bool -> IntSet -> CharSet
 charSet b s = CharSet b (ByteSet.fromList (fmap headByte (I.toAscList s))) s
