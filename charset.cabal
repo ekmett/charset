@@ -5,15 +5,15 @@ license-File:  LICENSE
 copyright:     (c) Edward Kmett 2010-2012
 author:        Edward Kmett
 maintainer:    ekmett@gmail.com
-cabal-version: >= 1.6
+cabal-version: >= 1.8
 stability:     Experimental
 category:      Data
 homepage:      http://github.com/ekmett/charset
 bug-reports:   http://github.com/ekmett/charset/issues
 synopsis:      Fast unicode character sets based on complemented PATRICIA tries
-description:   Fast unicode character sets based on complemented PATRICIA tries
+description:   Fast unicode character sets based on complemented PATRICIA tries.
 build-type:    Simple
-extra-source-files: .travis.yml
+extra-source-files: .travis.yml, CHANGELOG.markdown, README.markdown
 
 tested-with:
   GHC ==7.0.4
@@ -26,6 +26,7 @@ tested-with:
    || ==8.2.2
    || ==8.4.3
    || ==8.6.1
+   || ==8.8.1
 
 source-repository head
   type: git
