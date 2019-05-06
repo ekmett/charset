@@ -1,3 +1,7 @@
+next [????.??.??]
+-----------------
+* Add an `IsString CharSet` instance.
+
 0.3.7.1
 -------
 * Minor haddock fixup.
