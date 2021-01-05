@@ -1,7 +1,7 @@
 charsets
 ========
 
-[![Hackage](https://img.shields.io/hackage/v/charset.svg)](https://hackage.haskell.org/package/charset) [![Build Status](https://secure.travis-ci.org/ekmett/charset.png?branch=master)](http://travis-ci.org/ekmett/charset)
+[![Hackage](https://img.shields.io/hackage/v/charset.svg)](https://hackage.haskell.org/package/charset) [![Build Status](https://github.com/ekmett/charset/workflows/Haskell-CI/badge.svg)](https://github.com/ekmett/charset/actions?query=workflow%3AHaskell-CI)
 
 Fast utf-8 character sets for Haskell represented as complemented PATRICIA tries.
 

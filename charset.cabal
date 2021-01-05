@@ -13,7 +13,7 @@ bug-reports:   http://github.com/ekmett/charset/issues
 synopsis:      Fast unicode character sets based on complemented PATRICIA tries
 description:   Fast unicode character sets based on complemented PATRICIA tries.
 build-type:    Simple
-extra-source-files: .travis.yml, CHANGELOG.markdown, README.markdown
+extra-source-files: CHANGELOG.markdown, README.markdown
 
 tested-with:
   GHC ==7.0.4
