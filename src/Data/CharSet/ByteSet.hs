@@ -32,7 +32,13 @@ module Data.CharSet.ByteSet
 
 import Data.Bits ((.&.), (.|.))
 import Foreign.Storable (peekByteOff, pokeByteOff)
-import GHC.Exts hiding (fromList)
+import GHC.Exts ( Int(I#), Word#, iShiftRA#, shiftL#
+#if MIN_VERSION_base(4,16,0)
+                , Word8#, word8ToWord#, wordToWord8#
+#else
+                , narrow8Word#
+#endif
+                )
 import GHC.Word (Word8(W8#))
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Internal as I
