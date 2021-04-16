@@ -371,4 +371,6 @@ instance Semigroup CharSet where
 
 instance Monoid CharSet where
   mempty = empty
+#if !(MIN_VERSION_base(4,11,0))
   mappend = union
+#endif
