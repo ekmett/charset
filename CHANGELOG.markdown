@@ -1,3 +1,7 @@
+next [????.??.??]
+-----------------
+* Allow building with GHC 9.2.
+
 0.3.8 [2021.02.17]
 ------------------
 * Add an `IsString CharSet` instance.

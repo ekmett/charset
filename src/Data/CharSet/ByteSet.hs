@@ -32,7 +32,7 @@ module Data.CharSet.ByteSet
 
 import Data.Bits ((.&.), (.|.))
 import Foreign.Storable (peekByteOff, pokeByteOff)
-import GHC.Base (Int(I#), iShiftRA#, narrow8Word#, shiftL#)
+import GHC.Exts hiding (fromList)
 import GHC.Word (Word8(W8#))
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Internal as I
@@ -50,7 +50,7 @@ shiftR :: Int -> Int -> Int
 shiftR (I# x#) (I# i#) = I# (x# `iShiftRA#` i#)
 
 shiftL :: Word8 -> Int -> Word8
-shiftL (W8# x#) (I# i#) = W8# (narrow8Word# (x# `shiftL#` i#))
+shiftL (W8# x#) (I# i#) = W8# (narrow8WordCompat# (word8ToWordCompat# x# `shiftL#` i#))
 
 -- | Convert a bit index to a byte index and bit index inside the byte
 index :: Int -> I
@@ -73,3 +73,17 @@ member :: Word8 -> ByteSet -> Bool
 member w (ByteSet t) = U.unsafeIndex t byte .&. bit /= 0
   where
     I byte bit = index (fromIntegral w)
+
+#if MIN_VERSION_base(4,16,0)
+word8ToWordCompat# :: Word8# -> Word#
+word8ToWordCompat# = word8ToWord#
+
+narrow8WordCompat# :: Word# -> Word8#
+narrow8WordCompat# = wordToWord8#
+#else
+word8ToWordCompat# :: Word# -> Word#
+word8ToWordCompat# x = x
+
+narrow8WordCompat# :: Word# -> Word#
+narrow8WordCompat# = narrow8Word#
+#endif
