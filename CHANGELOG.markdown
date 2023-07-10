@@ -1,3 +1,9 @@
+next [????.??.??]
+-----------------
+* Allow building with `bytestring-0.12.*`.
+* Replace a use of `bytestring`'s `memset` function (which is now deprecated as
+  of `bytestring-0.12.*`) with `base`'s `fillBytes` function.
+
 0.3.9 [2021.11.01]
 ------------------
 * Allow building with GHC 9.2.

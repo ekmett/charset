@@ -44,6 +44,10 @@ import qualified Data.ByteString as B
 import qualified Data.ByteString.Internal as I
 import qualified Data.ByteString.Unsafe as U
 
+#if MIN_VERSION_base(4,8,0)
+import Foreign.Marshal.Utils (fillBytes)
+#endif
+
 newtype ByteSet = ByteSet B.ByteString deriving (Eq, Ord, Show)
 
 -- | Representation of the index of a bit inside a bytestring
@@ -65,7 +69,12 @@ index i = I (i `shiftR` 3) (1 `shiftL` (i .&. 7))
 
 fromList :: [Word8] -> ByteSet
 fromList s0 = ByteSet $ I.unsafeCreate 32 $ \t -> do
-  _ <- I.memset t 0 32
+  _ <-
+#if MIN_VERSION_base(4,8,0)
+    fillBytes t 0 32
+#else
+    I.memset t 0 32
+#endif
   let go [] = return ()
       go (c:cs) = do
         prev <- peekByteOff t byte :: IO Word8
