@@ -1,5 +1,5 @@
-next [????.??.??]
------------------
+0.3.10 [2023.08.06]
+-------------------
 * Allow building with `bytestring-0.12.*`.
 * Replace a use of `bytestring`'s `memset` function (which is now deprecated as
   of `bytestring-0.12.*`) with `base`'s `fillBytes` function.
