@@ -263,7 +263,7 @@ overlaps (CharSet False _ i) (CharSet False _ j) = any (\x -> I.notMember x i &&
 isSubsetOf :: CharSet -> CharSet -> Bool
 isSubsetOf (CharSet True _ i) (CharSet True _ j) = I.isSubsetOf i j
 isSubsetOf (CharSet True _ i) (CharSet False _ j) = I.null (I.intersection i j)
-isSubsetOf (CharSet False _ i) (CharSet True _ j) = all (\x -> I.member x i && I.member x j) [ol..oh] -- not bloody likely
+isSubsetOf (CharSet False _ i) (CharSet True _ j) = numChars == I.size (I.union i j)
 isSubsetOf (CharSet False _ i) (CharSet False _ j) = I.isSubsetOf j i
 {-# INLINE isSubsetOf #-}
 
