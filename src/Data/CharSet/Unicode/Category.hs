@@ -55,7 +55,7 @@ data Category = Category
     , categoryAbbreviation :: String
     , categoryCharSet :: CharSet
     , categoryDescription :: String
-    } deriving (Show, Data, Typeable)
+    } deriving (Show, Data)
 
 -- \p{Letter} or \p{Mc}
 categories :: [Category]

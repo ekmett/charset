@@ -1,8 +1,6 @@
 {-# LANGUAGE BangPatterns, MagicHash #-}
 {-# LANGUAGE CPP #-}
-#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 702
 {-# LANGUAGE Trustworthy #-}
-#endif
 -----------------------------------------------------------------------------
 -- |
 -- Module      :  Data.CharSet.ByteSet
@@ -32,6 +30,7 @@ module Data.CharSet.ByteSet
 
 import Data.Bits ((.&.), (.|.))
 import Foreign.Storable (peekByteOff, pokeByteOff)
+import Foreign.Marshal.Utils (fillBytes)
 import GHC.Exts ( Int(I#), Word#, iShiftRA#, shiftL#
 #if MIN_VERSION_base(4,16,0)
                 , Word8#, word8ToWord#, wordToWord8#
@@ -43,10 +42,6 @@ import GHC.Word (Word8(W8#))
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Internal as I
 import qualified Data.ByteString.Unsafe as U
-
-#if MIN_VERSION_base(4,8,0)
-import Foreign.Marshal.Utils (fillBytes)
-#endif
 
 newtype ByteSet = ByteSet B.ByteString deriving (Eq, Ord, Show)
 
@@ -69,12 +64,7 @@ index i = I (i `shiftR` 3) (1 `shiftL` (i .&. 7))
 
 fromList :: [Word8] -> ByteSet
 fromList s0 = ByteSet $ I.unsafeCreate 32 $ \t -> do
-  _ <-
-#if MIN_VERSION_base(4,8,0)
-    fillBytes t 0 32
-#else
-    I.memset t 0 32
-#endif
+  _ <- fillBytes t 0 32
   let go [] = return ()
       go (c:cs) = do
         prev <- peekByteOff t byte :: IO Word8

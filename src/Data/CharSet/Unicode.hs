@@ -44,7 +44,7 @@ import Data.Data
 import Data.CharSet
 
 data UnicodeCategory = UnicodeCategory String String CharSet String
-    deriving (Show, Data, Typeable)
+    deriving (Show, Data)
 
 -- \p{Letter} or \p{Mc}
 unicodeCategories :: [UnicodeCategory]

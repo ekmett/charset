@@ -1,9 +1,6 @@
 {-# OPTIONS_GHC -fspec-constr #-}
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE DeriveDataTypeable #-}
-#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 702
 {-# LANGUAGE Trustworthy #-}
-#endif
 -----------------------------------------------------------------------------
 -- |
 -- Module      :  Data.CharSet
@@ -75,11 +72,6 @@ module Data.CharSet
     , toArray
     ) where
 
-#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 608
-import Data.String (IsString(..))
--- <<< -XOverloadedStrings >>> was introduced by GHC 6.8.1
-#endif
-
 import Data.Array.Unboxed hiding (range)
 import Data.Data
 import Data.Function (on)
@@ -90,6 +82,7 @@ import Data.Bits hiding (complement)
 import Data.Word
 import Data.ByteString.Internal (c2w)
 import Data.Semigroup
+import Data.String (IsString(..))
 import qualified Data.IntSet as I
 import qualified Data.List as L
 import Prelude hiding (filter, map, null)
@@ -104,13 +97,10 @@ data CharSet = CharSet
     !Bool    -- Whether ByteSet and IntSet are negated
     !ByteSet -- Set of head bytes, unboxed
     !IntSet  -- Set of characters in the charset
-  deriving Typeable
 
-#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 608
 -- | @= CharSet.`fromList`@
 instance IsString CharSet where
   fromString = fromList
-#endif
 
 charSet :: Bool -> IntSet -> CharSet
 charSet b s = CharSet b (ByteSet.fromList (fmap headByte (I.toAscList s))) s

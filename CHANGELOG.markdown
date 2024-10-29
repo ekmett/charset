@@ -1,3 +1,7 @@
+next [????.??.??]
+-----------------
+* Drop support for pre-8.0 versions of GHC.
+
 0.3.10 [2023.08.06]
 -------------------
 * Allow building with `bytestring-0.12.*`.

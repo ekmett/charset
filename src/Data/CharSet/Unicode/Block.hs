@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# OPTIONS_GHC -fno-warn-missing-signatures #-}
+{-# OPTIONS_GHC -Wno-missing-signatures #-}
 -----------------------------------------------------------------------------
 -- |
 -- Module      :  Data.CharSet.Unicode.Block
@@ -139,7 +139,7 @@ import qualified Data.HashMap.Lazy as HashMap
 data Block = Block
     { blockName :: String
     , blockCharSet :: CharSet
-    } deriving (Show, Data, Typeable)
+    } deriving (Show, Data)
 
 blocks :: [Block]
 blocks =
