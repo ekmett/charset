@@ -227,7 +227,7 @@ notMember c s = not (member c s)
 {-# INLINE notMember #-}
 
 fold :: (Char -> b -> b) -> b -> CharSet -> b
-fold f z (CharSet True _ i) = I.fold (f . toEnum) z i
+fold f z (CharSet True _ i) = I.foldr (f . toEnum) z i
 fold f z (CharSet False _ i) = foldr f z $ P.filter (\x -> fromEnum x `I.notMember` i) [ul..uh]
 {-# INLINE fold #-}
 

@@ -1,3 +1,8 @@
+next [????.??.??]
+-----------------
+* Support building with `containers-0.8.*`.
+* Drop support for pre-`0.4.2.0` versions of `containers`.
+
 0.3.11 [2024.12.04]
 -------------------
 * Drop support for pre-8.0 versions of GHC.
