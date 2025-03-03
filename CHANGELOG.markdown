@@ -1,5 +1,5 @@
-next [????.??.??]
------------------
+0.3.12 [2025.03.03]
+-------------------
 * Support building with `containers-0.8.*`.
 * Drop support for pre-`0.4.2.0` versions of `containers`.
 
